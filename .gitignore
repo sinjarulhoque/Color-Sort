@@ -1,8 +1,7 @@
+# Android / Gradle
 *.iml
 .gradle
 .kotlin
-/firebase-debug.log
-/.firebase
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -16,7 +15,6 @@
 .externalNativeBuild
 .cxx
 local.properties
-.env
 debug.keystore
 
 # Signing keys — never commit
@@ -26,6 +24,18 @@ debug.keystore
 # Play release bundles
 play_store_publish/
 
-# Node (Firebase functions)
+# Node (Firebase functions + web project)
 node_modules/
 functions/node_modules/
+build/
+dist/
+coverage/
+*.log
+
+# Secrets
+.env*
+!.env.example
+
+# Firebase
+/firebase-debug.log
+/.firebase

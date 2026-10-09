@@ -1,6 +1,6 @@
 {
   "name": "Color Sort Puzzle",
-  "description": "A polished Color Sort Puzzle game.",
+  "description": "Discover Color Sort Puzzle, a colorful liquid-sorting Android game by Sinjarul Hoque combining intuitive mechanics with satisfying challenges.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
