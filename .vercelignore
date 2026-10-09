@@ -1,0 +1,27 @@
+# Android app project — not part of the landing page
+app/
+gradle/
+gradlew
+gradlew.bat
+build.gradle.kts
+settings.gradle.kts
+gradle.properties
+app-icon/
+play_store_assets/
+play_store_publish/
+
+# Build artifacts & caches
+build/
+.gradle/
+.kotlin/
+node_modules/
+.firebase/
+
+# Not needed for the site
+functions/
+hosting-public/
+*.sh
+*.py
+*.jks
+*.keystore
+*.log
