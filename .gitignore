@@ -1,0 +1,31 @@
+*.iml
+.gradle
+.kotlin
+/firebase-debug.log
+/.firebase
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+.env
+debug.keystore
+
+# Signing keys — never commit
+*.jks
+*.keystore
+
+# Play release bundles
+play_store_publish/
+
+# Node (Firebase functions)
+node_modules/
+functions/node_modules/

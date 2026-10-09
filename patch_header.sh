@@ -1,0 +1,8 @@
+#!/bin/bash
+sed -i 's/fun GameHeader(level: Int, xp: Int, coins: Int, lives: Int, onProfileClicked: () -> Unit)/fun GameHeader(level: Int, xp: Int, coins: Int, lives: Int, onProfileClicked: () -> Unit, onAddCoinsClicked: () -> Unit, onAddLivesClicked: () -> Unit, onSettingsClicked: () -> Unit)/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/ResourceCounter(icon = Icons.Filled.Favorite, iconTint = Color(0xFFEF4444), text = "$lives", suffix = "FULL")/ResourceCounter(icon = Icons.Filled.Favorite, iconTint = Color(0xFFEF4444), text = "$lives", suffix = if (lives >= 5) "FULL" else "", onClick = onAddLivesClicked)/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/ResourceCounter(icon = Icons.Filled.Stars, iconTint = Color(0xFFF59E0B), text = "${if (coins == 0) "12,580" else coins}")/ResourceCounter(icon = Icons.Filled.Stars, iconTint = Color(0xFFF59E0B), text = "$coins", onClick = onAddCoinsClicked)/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/IconButton(onClick = { \/\* Settings \*\/ },/IconButton(onClick = onSettingsClicked,/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/Text("${if (xp == 0) 12450 else xp} \/ 18,000 XP"/val targetXp = (level * 1000).coerceAtLeast(1000)\n                Text("$xp \/ $targetXp XP"/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/val progress = (xp % 1000) \/ 1000f/val progress = if (level > 0) (xp % 1000) \/ 1000f else 0f/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt
+sed -i 's/fillMaxWidth(if (progress == 0f) 0.5f else progress)/fillMaxWidth(progress.coerceAtLeast(0.01f))/g' app/src/main/java/com/example/ui/screens/HomeScreen.kt

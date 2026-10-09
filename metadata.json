@@ -1,0 +1,6 @@
+{
+  "name": "Color Sort Puzzle",
+  "description": "A polished Color Sort Puzzle game.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

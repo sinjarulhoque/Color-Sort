@@ -1,0 +1,76 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownUser(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn() && (resource.data.publicProfile == true || ownUser(uid));
+      allow create: if ownUser(uid)
+        && request.resource.data.uid == uid
+        && !request.resource.data.keys().hasAny(['coins', 'lives', 'xp']);
+      allow update: if ownUser(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName', 'countryCode', 'avatarUrl', 'publicProfile'
+        ]);
+      allow delete: if false;
+
+      match /notifications/{notificationId} {
+        allow read: if ownUser(uid);
+        allow update: if ownUser(uid)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']);
+        allow create, delete: if false;
+      }
+
+      match /settings/{settingId} {
+        allow read, write: if ownUser(uid);
+      }
+
+      match /inventory/{itemId} {
+        allow read: if ownUser(uid);
+        allow write: if false;
+      }
+
+      match /achievements/{achievementId} {
+        allow read: if ownUser(uid);
+        allow write: if false;
+      }
+
+      match /gameSessions/{sessionId} {
+        allow read: if ownUser(uid);
+        allow create: if ownUser(uid)
+          && request.resource.data.uid == uid
+          && request.resource.data.keys().hasOnly(['sessionId', 'uid', 'levelId', 'moves', 'elapsedTime', 'status', 'updatedAt']);
+        allow update: if ownUser(uid)
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['sessionId', 'uid', 'levelId', 'moves', 'elapsedTime', 'status', 'updatedAt']);
+        allow delete: if false;
+      }
+
+      match /adRewards/{rewardId} {
+        allow read: if ownUser(uid);
+        allow write: if false;
+      }
+    }
+
+    match /shopProducts/{productId} {
+      allow read: if signedIn() && resource.data.enabled == true;
+      allow write: if false;
+    }
+
+    match /achievements/{achievementId} {
+      allow read: if signedIn() && resource.data.enabled == true;
+      allow write: if false;
+    }
+
+    match /events/{eventId} {
+      allow read: if signedIn() && resource.data.enabled == true;
+      allow write: if false;
+    }
+  }
+}
